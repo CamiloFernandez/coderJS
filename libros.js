@@ -4,6 +4,5 @@ class libros{
     this.autor = autor,
     this.codigo = codigo
   }
-
 }
 
