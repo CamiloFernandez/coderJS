@@ -137,4 +137,4 @@ do{
   }else{
     alert("Por favor ingrese una opción valida.")
   }
-  }while(inicio > 0 && inicio < 3)
+  }while(inicio != 3)
