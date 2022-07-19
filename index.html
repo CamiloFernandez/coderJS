@@ -1,12 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <title>Document</title>
 </head>
+
 <body>
-    <script src="main.js"></script>
+  <main class="main">
+    <section class="Section">
+      <h1 class="title">Registro de Libros</h1>
+      <form id="form" class="form" autocomplete="off">
+        <div class="article">
+          <label class="label" for="name">Libro</label>
+          <input class="input" id="name" type="text" placeholder="Ingrese el nombre del libro">
+        </div>
+
+        <div class="article">
+          <label class="label" for="autor">Autor</label>
+          <input class="input" id="autor" type="text" placeholder="Ingrese el nombre del autor">
+        </div>
+
+        <div class="article">
+          <label class="label" for="genres">Genero</label>
+          <input class="input" id="genres" type="text" placeholder="Ingrese el genero del libro">
+        </div>
+
+        <div class="article">
+          <label class="label" for="code">Código</label>
+          <label class="label" id="code">1</label>
+        </div>
+
+        <button class="btn" type="submit">Registrar</button>
+        <button class="btn" type="reset">Borrar</button>
+      </form>
+
+      <h2 class="subtitle">Buscar libro</h2>
+      <form class="form-search" autocomplete="off">
+        <div class="search-container">
+          <label class="label" for="select">Buscar por:</label>
+          <select name="select" class="select" id="select">
+            <option value="name">Nombre</option>
+            <option value="autor">Autor</option>
+            <option value="genres">Genero</option>
+            <option value="code">Código</option>
+            <option value="all">Ver todos</option>
+            <option selected disabled>----------</option>
+          </select>
+          <input id="search" class="input search" type="text" placeholder="Ingrese el nombre del libro">
+        </div>
+        <button class="btn" id="btn-search">Buscar</button>
+      </form>
+
+      <article id="books" class="cards-container">
+        
+        </div>
+    </article>
+    </section>
+
+  </main>
+  <script src="main.js"></script>
 </body>
+
 </html>

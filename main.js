@@ -1,140 +1,163 @@
-class Libros {
-  constructor(nombre, autor, genero, codigo) {
-    this.nombre = nombre,
+class Books {
+  constructor(name, autor, genres, code) {
+    this.name = name,
     this.autor = autor,
-    this.genero = genero,
-    this.codigo = codigo
+    this.genres = genres,
+    this.code = code
   }
 }
 
-const registro = []
+let code = 1
+let option
+const register = []
 
-//Funcion para registrar los libros
+const form = document.getElementById('form')
+const select = document.getElementById('select')
+const search = document.getElementById('search')
+const btnSearch = document.getElementById('btn-search')
+const container = document.getElementById('books')
+const codeLabel = document.getElementById('code')
 
-function registrarLibro() {
-  let nombre, autor, genero, codigo
+form.addEventListener('submit', (e) => {
+  e.preventDefault()
 
-  do {
-    nombre = prompt("Por favor ingrese el nombre del libro.").toLowerCase()
-    autor = prompt("Por favor ingrese el nombre del autor.").toLowerCase()
-    genero = prompt("Por favor ingrese el genero del libro.").toLowerCase()
-    codigo = parseInt(prompt("Por favor Ingrese el código del libro.(numérico mayor a 0)"))
+  let name = document.getElementById('name').value.toLowerCase()
+  let autor = document.getElementById('autor').value.toLowerCase()
+  let genres = document.getElementById('genres').value.toLowerCase()
 
-    if (nombre == "" || autor == "" || genero== "" || codigo == 0) {
-      alert("Por favor ingresa los datos correctamente.")
-    } else {
-      alert("El libro se ha registrado correctamente.")
-    }
-  } while (nombre == "" || autor == "" || genero== "" || codigo == 0)
-  const libro = new Libros(nombre, autor, genero, codigo)
-  registro.push(libro)
+  if (name == "" || autor == "" || genres == "") {
+    alert('Por favor ingresa datos validos')
+  } else {
+    const book = new Books(name, autor, genres, code)
+    register.push(book)
+    code++
+    codeLabel.innerText = code
+  }
+  
+  form.reset()
+})
+
+function showBooks(param) {
+  param.forEach(bookSearch => {
+    container.innerHTML += `
+      <div class="card">
+      <div class="card__section">
+        <h2 class="card__subtitle">Nombre</h2>
+        <p class="card__text">${bookSearch.name}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Autor</h2>
+        <p class="card__text">${bookSearch.autor}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Genero</h2>
+        <p class="card__text">${bookSearch.genres}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Código</h2>
+        <p class="card__text">${bookSearch.code}</p>
+      </div>
+    </div>
+      `
+  })
 }
 
-//Funcion para buscar un libro por su codigo y mostrarlo en consola
-
-function consultarCodigo(registro){
- let consultaCodigo = parseInt (prompt("Por favor ingrese el codigo del libro."))
- let codigoBuscado = registro.find(libro => libro.codigo == consultaCodigo)
-
- if(consultaCodigo == undefined){
-  alert("Código no encontrado.")
- }else{
-  console.log(codigoBuscado)
- }
+function searchName() {
+  let searchedName = search.value.toLowerCase()
+  let filterName = register.filter(book => book.name == searchedName)
+  if (filterName.length == 0) {
+    alert('Nombre no encontrado')
+  } else {
+    showBooks(filterName)
+  }
 }
 
-//Funcion para buscar un libro por su nombre y mostrarlo en consola
+function searchAutor() {
+  let searchedAutor = search.value.toLowerCase()
+  let filterAutor = register.filter(book => book.autor == searchedAutor)
+  if (filterAutor.length == 0) {
+    alert('Autor no encontrado')
+  } else {
+    showBooks(filterAutor)
+  }
+}
 
-function consultarNombre(registro){
-  let consultaNombre = prompt("Por favor ingrese el nombre del libro.").toLowerCase()
-  let nombreBuscado = registro.find(libro => libro.nombre == consultaNombre)
+function searchGenres() {
+  let searchedGenres = search.value.toLowerCase()
+  let filterGenres = register.filter(book => book.genres == searchedGenres)
+  if (filterGenres.length == 0) {
+    alert('Genero no encontrado')
+  } else{
+    showBooks(filterGenres)
+  }
+}
 
-  if(consultaNombre  == undefined){
-    console.log("Nombre no encontrado")
+function searchCode() {
+  let searchedCode = parseInt(search.value)
+  let filterCode = register.find(book => book.code == searchedCode)
+  if (filterCode == undefined){
+    alert('Código no encontrado')
   }else{
-    console.log(nombreBuscado)
+    container.innerHTML += `
+      <div class="card">
+      <div class="card__section">
+        <h2 class="card__subtitle">Nombre</h2>
+        <p class="card__text">${filterCode.name}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Autor</h2>
+        <p class="card__text">${filterCode.autor}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Genero</h2>
+        <p class="card__text">${filterCode.genres}</p>
+      </div>
+      <div class="card__section">
+        <h2 class="card__subtitle">Código</h2>
+        <p class="card__text">${filterCode.code}</p>
+      </div>
+    </div>
+      `
   }
 }
 
-//Funcion para buscar libros por el nombre del autor y mostrarlos en consola
-
-function consultarAutor(registro){
-  let consultaAutor = prompt("Por favor ingrese el nombre del autor.").toLowerCase()
-  let autorBuscado = registro.filter(libro => libro.autor == consultaAutor)
-
-  if(autorBuscado.length == 0){
-    alert("Autor no encontrado")
-  }else{
-   autorBuscado.forEach(librosAutor => console.log(librosAutor))
+btnSearch.addEventListener('click', (e) => {
+  e.preventDefault()
+  container.innerHTML = ""
+  switch (option) {
+    case 'name':
+      searchName()
+      break
+    case 'autor':
+      searchAutor()
+      break
+    case 'genres':
+      searchGenres()
+      break
+    case 'code':
+      searchCode()
+      break
+    case 'all':
+      showBooks(register)
+      break
   }
-}
+  search.value = ""
+})
 
-//Funcion para buscar libros por el genero y mostrarlos en consola
-
-function consultarGenero(registro){
-  let consultaGenero = prompt("Por favor ingrese el genero.").toLowerCase()
-  let generoBuscado = registro.filter(libro => libro.genero == consultaGenero)
-
-  if(generoBuscado.length == 0){
-    alert("Genero no encontrado")
-  }else{
-    generoBuscado.forEach(librosGenero => console.log(librosGenero))
+select.addEventListener('change', () => {
+  option = document.getElementById('select').value
+  switch (option) {
+    case 'name':
+      search.placeholder = 'Ingrese el nombre del libro'
+      break
+    case 'autor':
+      search.placeholder = 'Ingrese el autor del libro'
+      break
+    case 'genres':
+      search.placeholder = 'Ingrese el genero del libro'
+      break
+    case 'code':
+      search.placeholder = 'Ingrese el código del libro'
+      break
   }
-}
-
-//FUncion para mostrar todos los libros registrados
-
-function mostrarTodos(registro){
-  registro.forEach(librosTodos => console.log(librosTodos))
-}
-
-//Elegir con que parametro buscar los libros
-
-function consultarLibro(){
- let consulta = parseInt(prompt(`Ingrese un número para:
- 1- Consultar libro por su codigo.
- 2- Consultar libro por su nombre.
- 3- Consultar libros por su autor.
- 4- Consultar libros por su genero.
- 5- Ver todos los libros registrados.
- `))
-
- switch(consulta){
-  case 1:
-    consultarCodigo(registro)
-    break
-  case 2:
-    consultarNombre(registro)
-    break
-  case 3:
-    consultarAutor(registro)
-    break
-  case 4:
-    consultarGenero(registro)
-    break
-  case 5:
-    mostrarTodos(registro)
-    break
-  default:
-    alert("Por favor ingrese una opción valida")
- }
-}
-
-let inicio
-
-do{
-  inicio = parseInt(prompt(`Ingrese un número para:
-  1- Registrar libros.
-  2- Consultar libros.
-  3- Salir.
-  `)) 
-  if(inicio == 1){
-    registrarLibro()
-  }else if(inicio == 2){
-    consultarLibro()
-  }else if(inicio == 3){
-    alert("¡Hasta luego!")
-  }else{
-    alert("Por favor ingrese una opción valida.")
-  }
-  }while(inicio != 3)
+})
