@@ -21,6 +21,7 @@ body {
 }
 
 .modal{
+  display: none;
   position: absolute;
   width: 15rem;
   height: 10rem;
