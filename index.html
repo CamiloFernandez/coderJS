@@ -23,17 +23,17 @@
       <form id="form" class="form" autocomplete="off">
         <div class="article">
           <label class="label" for="name">Libro</label>
-          <input class="input" id="name" type="text" placeholder="Ingrese el nombre del libro">
+          <input class="input" id="name" type="text" required placeholder="Ingrese el nombre del libro">
         </div>
 
         <div class="article">
           <label class="label" for="autor">Autor</label>
-          <input class="input" id="autor" type="text" placeholder="Ingrese el nombre del autor">
+          <input class="input" id="autor" type="text" required placeholder="Ingrese el nombre del autor">
         </div>
 
         <div class="article">
           <label class="label" for="genres">Género</label>
-          <input class="input" id="genres" type="text" placeholder="Ingrese el genero del libro">
+          <input class="input" id="genres" type="text" required placeholder="Ingrese el genero del libro">
         </div>
 
         <div class="article">
@@ -42,11 +42,11 @@
         </div>
 
         <button class="btn" type="submit">Registrar</button>
-        <button class="btn" type="reset">Borrar</button>
+        <button class="btn" type="reset">Resetear</button>
+        
       </form>
-
       <h2 class="subtitle">Buscar libro</h2>
-      <form class="form-search" autocomplete="off">
+      <form class="form-search" id="formSearch" autocomplete="off">
         <div class="search-container">
           <label class="label" for="select">Buscar por:</label>
           <select name="select" class="select" id="select">
@@ -55,9 +55,9 @@
             <option value="genres">Genero</option>
             <option value="code">Código</option>
             <option value="all">Todos</option>
-            <option selected disabled>----------</option>
+            <option selected disabled value="none">----------</option>
           </select>
-          <input id="search" class="input search" type="text" placeholder="Ingrese el nombre del libro">
+          <input id="search" class="input search" type="text">
         </div>
         <button class="btn" id="btn-search">Buscar</button>
       </form>

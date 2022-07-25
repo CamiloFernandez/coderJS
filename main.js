@@ -1,15 +1,15 @@
 class Books {
   constructor(name, autor, genres, code) {
     this.name = name,
-    this.autor = autor,
-    this.genres = genres,
-    this.code = code
+      this.autor = autor,
+      this.genres = genres,
+      this.code = code
   }
 }
 
 let code = 1
 let option
-const register = []
+let register = []
 
 const form = document.getElementById('form')
 const select = document.getElementById('select')
@@ -17,7 +17,17 @@ const search = document.getElementById('search')
 const btnSearch = document.getElementById('btn-search')
 const container = document.getElementById('books')
 const codeLabel = document.getElementById('code')
+const formSearch = document.getElementById('formSearch')
 
+
+function checkLocalStorage() {
+  if (localStorage.getItem('books')) {
+    register = JSON.parse(localStorage.getItem('books'))
+    const lastBook = register.length
+    code = lastBook + 1
+    codeLabel.innerHTML = code
+  }
+}
 form.addEventListener('submit', (e) => {
   e.preventDefault()
 
@@ -31,16 +41,16 @@ form.addEventListener('submit', (e) => {
     const book = new Books(name, autor, genres, code)
     register.push(book)
     code++
+    localStorage.setItem('books', JSON.stringify(register))
     codeLabel.innerText = code
   }
-  
   form.reset()
 })
 
 function showBooks(param) {
   param.forEach(bookSearch => {
     container.innerHTML += `
-      <div class="card">
+      <div class="card" id="cardId${bookSearch.code}">
       <div class="card__section">
         <h2 class="card__subtitle">Nombre</h2>
         <p class="card__text">${bookSearch.name}</p>
@@ -87,7 +97,7 @@ function searchGenres() {
   let filterGenres = register.filter(book => book.genres == searchedGenres)
   if (filterGenres.length == 0) {
     alert('Genero no encontrado')
-  } else{
+  } else {
     showBooks(filterGenres)
   }
 }
@@ -95,11 +105,11 @@ function searchGenres() {
 function searchCode() {
   let searchedCode = parseInt(search.value)
   let filterCode = register.find(book => book.code == searchedCode)
-  if (filterCode == undefined){
+  if (filterCode == undefined) {
     alert('Código no encontrado')
-  }else{
+  } else {
     container.innerHTML += `
-      <div class="card">
+      <div class="card" id="cardId${filterCode.code}">
       <div class="card__section">
         <h2 class="card__subtitle">Nombre</h2>
         <p class="card__text">${filterCode.name}</p>
@@ -141,7 +151,7 @@ btnSearch.addEventListener('click', (e) => {
       showBooks(register)
       break
   }
-  search.value = ""
+  formSearch.reset()
 })
 
 select.addEventListener('change', () => {
@@ -161,3 +171,5 @@ select.addEventListener('change', () => {
       break
   }
 })
+
+checkLocalStorage()
