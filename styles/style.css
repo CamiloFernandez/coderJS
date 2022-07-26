@@ -181,6 +181,11 @@ body {
   text-align: center;
 }
 
+.swal2-popup {
+  font-size: 1.6rem !important;
+  font-family: Georgia, serif;
+}
+
 @media (max-width: 768px) {
   .form {
     grid-template-columns: 1fr;

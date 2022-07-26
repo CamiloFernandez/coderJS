@@ -182,7 +182,7 @@ function modal(title,text,icon){
   title: title,
   text: text,
   icon: icon,
-  confirmButtonText: 'OK'
+  confirmButtonText: 'OK',
   })
 }
 
