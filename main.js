@@ -43,6 +43,7 @@ form.addEventListener('submit', (e) => {
     code++
     localStorage.setItem('books', JSON.stringify(register))
     codeLabel.innerText = code
+    modal('Registro Correcto','Ahora puede encontrar el libro en el registro', 'success')
   }
   form.reset()
 })
@@ -76,7 +77,7 @@ function searchName() {
   let searchedName = search.value.toLowerCase()
   let filterName = register.filter(book => book.name == searchedName)
   if (filterName.length == 0) {
-    alert('Nombre no encontrado')
+    modal('Error','Nombre no encontrado', 'error')
   } else {
     showBooks(filterName)
   }
@@ -86,7 +87,7 @@ function searchAutor() {
   let searchedAutor = search.value.toLowerCase()
   let filterAutor = register.filter(book => book.autor == searchedAutor)
   if (filterAutor.length == 0) {
-    alert('Autor no encontrado')
+    modal('Error','Autor no encontrado', 'error')
   } else {
     showBooks(filterAutor)
   }
@@ -96,7 +97,7 @@ function searchGenres() {
   let searchedGenres = search.value.toLowerCase()
   let filterGenres = register.filter(book => book.genres == searchedGenres)
   if (filterGenres.length == 0) {
-    alert('Genero no encontrado')
+    modal('Error','Género no encontrado','error')
   } else {
     showBooks(filterGenres)
   }
@@ -106,7 +107,7 @@ function searchCode() {
   let searchedCode = parseInt(search.value)
   let filterCode = register.find(book => book.code == searchedCode)
   if (filterCode == undefined) {
-    alert('Código no encontrado')
+    modal('Error','Código no encontrado','error')
   } else {
     container.innerHTML += `
       <div class="card" id="cardId${filterCode.code}">
@@ -148,7 +149,11 @@ btnSearch.addEventListener('click', (e) => {
       searchCode()
       break
     case 'all':
-      showBooks(register)
+      if(register.length > 0){
+        showBooks(register)
+      }else{
+        modal('Error','Aun no se ha registrado ningún libro','error')
+      }
       break
   }
   formSearch.reset()
@@ -171,5 +176,14 @@ select.addEventListener('change', () => {
       break
   }
 })
+
+function modal(title,text,icon){
+  Swal.fire({
+  title: title,
+  text: text,
+  icon: icon,
+  confirmButtonText: 'OK'
+  })
+}
 
 checkLocalStorage()

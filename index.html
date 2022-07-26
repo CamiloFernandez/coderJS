@@ -12,11 +12,6 @@
 
 <body>
 
-  <div class="modal">
-    <h2 class="modal__title">Algun Titulo</h2>
-    <p class="modal__text">Algun Texto</p>
-  </div>
-
   <main class="main">
     <section class="Section">
       <h1 class="title">Registro de Libros</h1>
@@ -57,7 +52,7 @@
             <option value="all">Todos</option>
             <option selected disabled value="none">----------</option>
           </select>
-          <input id="search" class="input search" type="text">
+          <input id="search" class="input search" type="text" required>
         </div>
         <button class="btn" id="btn-search">Buscar</button>
       </form>
@@ -69,6 +64,7 @@
     </section>
 
   </main>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="main.js"></script>
 </body>
 
