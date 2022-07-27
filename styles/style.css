@@ -101,9 +101,10 @@ body {
   box-shadow: none;
 }
 
-.subtitle {
-  font-size: 2rem;
-  text-align: center;
+.btn-delete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-search {
@@ -162,13 +163,23 @@ body {
   border-radius: 10px;
   box-shadow: 2px 2px 1px rgb(80, 80, 80);
   gap: 1rem;
+  transition: transform .5s ease;
+}
+
+.card-animation:hover{
+  transform: scale(1.1);
+}
+
+.card-delete{
+  transform: translateX(-300%);
 }
 
 .card__section {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  margin: 1rem .5rem;
+  justify-content: center;
+  margin: 1rem auto;
 }
 
 .card__subtitle {
@@ -179,6 +190,27 @@ body {
 .card__text {
   font-size: 1.5rem;
   text-align: center;
+}
+
+.btn-close{
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  height: 2rem;
+  width: 2rem;
+  background-image: url(../img/close.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
+
+.btn-close:hover{
+  transform: translateY(-.2rem);
+}
+
+.btn-close:active{
+  transform: translateY(0);
 }
 
 .swal2-popup {
@@ -197,11 +229,6 @@ body {
 
   .btn {
     width: 70%;
-  }
-
-  .card__section {
-    flex-direction: column;
-
   }
 
   .cards-container {
