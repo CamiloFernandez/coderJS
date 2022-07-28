@@ -117,7 +117,6 @@ function deleteBookSwal() {
           showCancelButton: true,
           cancelButtonText: "CANCELAR"
         }).then((result) => {
-          console.log(result.value)
           if (result.value) {
             deleteBookf(book)
           }
