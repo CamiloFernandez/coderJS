@@ -7,7 +7,7 @@ class Books {
   }
 }
 
-let code = 1
+let code
 let option
 let register = []
 
@@ -19,6 +19,11 @@ const container = document.getElementById('cardsContainer')
 const codeLabel = document.getElementById('code')
 const formSearch = document.getElementById('formSearch')
 const deleteBook = document.getElementById('deleteBook')
+const loginWindow = document.getElementById('login')
+const loginForm = document.getElementById('login-form')
+const btnLogin = document.getElementById('btn-login')
+
+//Chequea el local storage, trae lo datos guardados y actualiza el código de los libros
 
 function checkLocalStorage() {
   if (localStorage.getItem('books')) {
@@ -33,6 +38,35 @@ function checkLocalStorage() {
     codeLabel.innerHTML = code
   }
 }
+
+async function login(){
+  const users = await fetch('/json/users.json')
+  const parsedUsers = await users.json()
+  return parsedUsers
+}
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const loginUser = document.getElementById('user').value
+    const loginPasswor = document.getElementById('password').value
+  login().then(users =>{
+    let logedUser = users.find(user => user.username == loginUser)
+    if(logedUser == undefined){
+      modal('Acceso denegado','Usuario o contraseña equivocados','error', 'center')
+    }else{
+      if(loginPasswor == logedUser.password){
+      loginWindow.classList.remove('show-login')
+    }else{
+      modal('Acceso denegado','Usuario o contraseña equivocados','error', 'center')
+    }
+    }
+    
+  })
+  
+})
+
+//Trae los datos desde el formulario, los convierte un objeto, lo pushea al array de libros y guarda el local storage
+
 form.addEventListener('submit', (e) => {
   e.preventDefault()
 
@@ -45,10 +79,12 @@ form.addEventListener('submit', (e) => {
   code++
   localStorage.setItem('books', JSON.stringify(register))
   codeLabel.innerText = code
-  modal('Registro Correcto', 'Ahora puede encontrar el libro en el registro', 'success')
+  modal('Registro Correcto', `Ahora puede encontrar "${name}" en el registro`, 'success' )
 
   form.reset()
 })
+
+
 
 function showBooks(param) {
   param.forEach((bookSearch, index) => {
@@ -88,12 +124,13 @@ container.addEventListener('click', (e) => {
   }
 })
 
-function deleteBookf(param) {
+function deleteBookfuntion(param) {
   let index = register.findIndex(book => book.code == param)
   register.splice(index, 1)
   localStorage.setItem('books', JSON.stringify(register))
   checkLocalStorage()
   container.innerHTML = ""
+  modal('Eliminado', 'Libro eliminado exitosamente', 'success')
 }
 
 function deleteBookSwal() {
@@ -118,7 +155,7 @@ function deleteBookSwal() {
           cancelButtonText: "CANCELAR"
         }).then((result) => {
           if (result.value) {
-            deleteBookf(book)
+            deleteBookfuntion(book)
           }
         })
       }
@@ -217,12 +254,16 @@ select.addEventListener('change', () => {
   }
 })
 
-function modal(title, text, icon) {
+function modal(title, text, icon, position = 'bottom') {
   Swal.fire({
     title: title,
     text: text,
     icon: icon,
-    confirmButtonText: 'OK',
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    toast: true,
+    position: position,
   })
 }
 

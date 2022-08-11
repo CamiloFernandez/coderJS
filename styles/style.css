@@ -21,6 +21,7 @@ body {
 }
 
 .main {
+  position: relative;
   width: 100vw;
   height: 100vh;
   padding: .5rem;
@@ -28,6 +29,28 @@ body {
   border-radius: 10px;
   background-color: #BBE1C5;
   overflow-x: hidden;
+}
+
+.login{
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(0);
+  position: absolute;
+  margin: 10rem auto;
+  width: 80%;
+  height: 40rem;
+  background-color: #EFFFFD;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 5px 5px 5px black;
+  transition: transform .3s ease;
+  z-index: 10;
+}
+
+.show-login{
+  transform: scale(1);
 }
 
 .section {
@@ -71,6 +94,13 @@ body {
   font-size: 2.5rem;
   text-align: center;
   margin: 0;
+}
+
+.text{
+  color: black;
+  font-size: 2rem;
+  text-align: center;
+  margin: 3rem auto;
 }
 
 .form {
