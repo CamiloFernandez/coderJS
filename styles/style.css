@@ -31,22 +31,28 @@ body {
   overflow-x: hidden;
 }
 
-.login{
+.login-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  transform: scale(0);
   position: absolute;
+  z-index: 10;
+  transform: scale(0);
+}
+
+.login{
   margin: 10rem auto;
-  width: 80%;
+  width: 50%;
   height: 40rem;
   background-color: #EFFFFD;
   border-radius: 10px;
   padding: 1rem;
   box-shadow: 5px 5px 5px black;
-  transition: transform .3s ease;
-  z-index: 10;
+  z-index: 11;
 }
 
 .show-login{
