@@ -7,7 +7,7 @@ class Books {
   }
 }
 
-let code
+let code = 1
 let option
 let register = []
 
@@ -225,13 +225,6 @@ btnSearch.addEventListener('click', (e) => {
     case 'code':
       searchCode()
       break
-    case 'all':
-      if (register.length > 0) {
-        showBooks(register)
-      } else {
-        modal('Error', 'No se ha encontrado ningún libro en el registro', 'error')
-      }
-      break
   }
   formSearch.reset()
 })
@@ -251,6 +244,13 @@ select.addEventListener('change', () => {
     case 'code':
       search.placeholder = 'Ingrese el código del libro'
       break
+    case 'all':
+      if (register.length > 0) {
+          showBooks(register)
+      }else {
+          modal('Error', 'No se ha encontrado ningún libro en el registro', 'error')
+      }
+      break  
   }
 })
 
