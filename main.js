@@ -87,6 +87,7 @@ form.addEventListener('submit', (e) => {
 
 
 function showBooks(param) {
+  container.innerHTML =''
   param.forEach((bookSearch, index) => {
     container.innerHTML += `
     <div class="card card-animation" id="cardId${index}">
@@ -245,6 +246,7 @@ select.addEventListener('change', () => {
       search.placeholder = 'Ingrese el código del libro'
       break
     case 'all':
+      search.placeholder = 'Se enseñaran todos los libros'
       if (register.length > 0) {
           showBooks(register)
       }else {

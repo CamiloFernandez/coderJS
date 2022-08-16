@@ -3,8 +3,7 @@ html {
   font-size: 62.5%;
 }
 
-*,
-*:before,
+*, *:before,
 *:after {
   box-sizing: inherit;
 }
@@ -239,14 +238,6 @@ body {
   background-size: cover;
   background-color: transparent;
   border: none;
-}
-
-.btn-close:hover{
-  transform: translateY(-.2rem);
-}
-
-.btn-close:active{
-  transform: translateY(0);
 }
 
 .swal2-popup {
