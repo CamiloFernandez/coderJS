@@ -39,8 +39,10 @@ function checkLocalStorage() {
   }
 }
 
+//Trae los datos de usuarios desde el json
+
 async function login(){
-  const users = await fetch('/json/users.json')
+  const users = await fetch('../json/users.json')
   const parsedUsers = await users.json()
   return parsedUsers
 }
@@ -60,9 +62,7 @@ loginForm.addEventListener('submit', (e) => {
       modal('Acceso denegado','Usuario o contraseña equivocados','error', 'center')
     }
     }
-    
   })
-  
 })
 
 //Trae los datos desde el formulario, los convierte un objeto, lo pushea al array de libros y guarda el local storage
@@ -168,8 +168,6 @@ function deleteBookSwal() {
     }
   })
 }
-
-
 
 deleteBook.addEventListener('click', (e) => {
   e.preventDefault()
