@@ -84,7 +84,7 @@ form.addEventListener('submit', (e) => {
   form.reset()
 })
 
-
+//Toma como parametro un array resulante de filtrar por nombre, autor, genero o codigo y los enseña todos en pantalla
 
 function showBooks(param) {
   container.innerHTML =''
@@ -113,6 +113,7 @@ function showBooks(param) {
   })
 }
 
+//Le agrega la funcionalidad de quitar del DOM a los botones de las card
 container.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON') {
     let card = e.target.parentNode
@@ -125,6 +126,8 @@ container.addEventListener('click', (e) => {
   }
 })
 
+//Toma como parametro un codigo dado por el usuario,  busca y elimina el libro del array de libros y del local storage
+
 function deleteBookfuntion(param) {
   let index = register.findIndex(book => book.code == param)
   register.splice(index, 1)
@@ -133,6 +136,8 @@ function deleteBookfuntion(param) {
   container.innerHTML = ""
   modal('Eliminado', 'Libro eliminado exitosamente', 'success')
 }
+
+//Pide un codigo al usuario, lo busca y ejecuta la funcion para borrar libros usando el codigo dado
 
 function deleteBookSwal() {
   Swal.fire({
@@ -163,10 +168,15 @@ function deleteBookSwal() {
     }
   })
 }
+
+
+
 deleteBook.addEventListener('click', (e) => {
   e.preventDefault()
   deleteBookSwal()
 })
+
+//Busca los libros a los que corresponda el nombre ingresado y ejecuta la funcion para mostrarlos en el DOM
 
 function searchName() {
   let searchedName = search.value.toLowerCase()
@@ -178,6 +188,8 @@ function searchName() {
   }
 }
 
+//Busca los libros a los que corresponda el autor ingresado y ejecuta la funcion para mostrarlos en el DOM
+
 function searchAutor() {
   let searchedAutor = search.value.toLowerCase()
   let filterAutor = register.filter(book => book.autor == searchedAutor)
@@ -188,6 +200,8 @@ function searchAutor() {
   }
 }
 
+//Busca los libros a los que corresponda el genero ingresado y ejecuta la funcion para mostrarlos en el DOM
+
 function searchGenres() {
   let searchedGenres = search.value.toLowerCase()
   let filterGenres = register.filter(book => book.genres == searchedGenres)
@@ -197,6 +211,8 @@ function searchGenres() {
     showBooks(filterGenres)
   }
 }
+
+//Busca los libros a los que corresponda el codigo ingresado y ejecuta la funcion para mostrarlos en el DOM
 
 function searchCode() {
   let searchedCode = parseInt(search.value)
@@ -210,9 +226,18 @@ function searchCode() {
   }
 }
 
+function showAll(){
+  if (register.length > 0) {
+    showBooks(register)
+  }else {
+    modal('Error', 'No se ha encontrado ningún libro en el registro', 'error')
+}
+}
+
+//Comprueba la opcion seleccionada en el select y ejecuta una funcion dependiendo de cual opcion esta en el select
+
 btnSearch.addEventListener('click', (e) => {
   e.preventDefault()
-  container.innerHTML = ""
   switch (option) {
     case 'name':
       searchName()
@@ -226,9 +251,14 @@ btnSearch.addEventListener('click', (e) => {
     case 'code':
       searchCode()
       break
+    case 'all':
+      showAll()
+      break
   }
-  formSearch.reset()
+  search.value = ''
 })
+
+//Actualiza el placeholder dependiendo de la opcion seleccionada y se se selecciono "all" ejecuta la funcion para mostrar todos en el DO;
 
 select.addEventListener('change', () => {
   option = document.getElementById('select').value
@@ -247,11 +277,7 @@ select.addEventListener('change', () => {
       break
     case 'all':
       search.placeholder = 'Se enseñaran todos los libros'
-      if (register.length > 0) {
-          showBooks(register)
-      }else {
-          modal('Error', 'No se ha encontrado ningún libro en el registro', 'error')
-      }
+      showAll()
       break  
   }
 })
