@@ -19,9 +19,6 @@ const container = document.getElementById('cardsContainer')
 const codeLabel = document.getElementById('code')
 const formSearch = document.getElementById('formSearch')
 const deleteBook = document.getElementById('deleteBook')
-const loginWindow = document.getElementById('login')
-const loginForm = document.getElementById('login-form')
-const btnLogin = document.getElementById('btn-login')
 
 //Chequea el local storage, trae lo datos guardados y actualiza el código de los libros
 
@@ -38,32 +35,6 @@ function checkLocalStorage() {
     codeLabel.innerHTML = code
   }
 }
-
-//Trae los datos de usuarios desde el json
-
-async function login(){
-  const users = await fetch('../json/users.json')
-  const parsedUsers = await users.json()
-  return parsedUsers
-}
-
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const loginUser = document.getElementById('user').value
-    const loginPasswor = document.getElementById('password').value
-  login().then(users =>{
-    let logedUser = users.find(user => user.username == loginUser)
-    if(logedUser == undefined){
-      modal('Acceso denegado','Usuario o contraseña equivocados','error', 'center')
-    }else{
-      if(loginPasswor == logedUser.password){
-      loginWindow.classList.remove('show-login')
-    }else{
-      modal('Acceso denegado','Usuario o contraseña equivocados','error', 'center')
-    }
-    }
-  })
-})
 
 //Trae los datos desde el formulario, los convierte un objeto, lo pushea al array de libros y guarda el local storage
 
